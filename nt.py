@@ -3,7 +3,9 @@ import pandas as pd
 import seaborn as sn
 import matplotlib.pyplot as plt
 
+# - koyduğum yerleri(notlar dışında) kod bloklarına bölerek Jüpitere yapıştır.
 
+# -
 # 2 adet farklı dataset kullanıldı.
 # Değerler sırasıyla;
 # Distance: Yüz tanıma oranı, 1'den küçükse yüzü tanıyor.
@@ -49,16 +51,15 @@ df = pd.DataFrame([
         [0.50, 3.51, True, True],
     ], columns=["Distance", "Duration", "Actual", "Predicted"])
 train, test = df.iloc[:18], df.iloc[18:]
-
+# -
 train
-
+# -
 test
-
+# -
 from sklearn.linear_model import LogisticRegression
 vc1 = pd.crosstab(train.Predicted, train.Actual)
 vc2 = pd.crosstab(test.Predicted, test.Actual)
-
-
+# -
 from sklearn.metrics import accuracy_score
 fig = plt.figure(figsize=(12,5))
 ax1 = plt.subplot(121)
@@ -67,5 +68,23 @@ ax1.set_title("Model I")
 ax2 = plt.subplot(122)
 sn.heatmap(vc2, annot=True, cmap='Blues')
 ax2.set_title("Model II")
-
+# -
+# False Negative
+FN_1 = vc1.iloc[0, 0]
+FN_2 = vc2.iloc[0, 0]
+# False Positive
+FP_1 = vc1.iloc[0, :].sum() - FN_1
+FP_2 = vc2.iloc[0, :].sum() - FN_2
+# True Negative
+TN_1 = vc1.iloc[:, 0].sum() - FN_1
+TN_2 = vc2.iloc[:, 0].sum() - FN_2
+# True Positive
+TP_1 = vc1.sum().sum() - TN_1-FP_1-FN_1
+TP_2 = vc2.sum().sum() - TN_2-FP_2-FN_2
+# Accuracy
+Accuracy_1 = (TP_1+TN_1)/vc1.sum().sum()
+Accuracy_2 = (TP_2+TN_2)/vc2.sum().sum()
+# Precision
+Precision_1 = TP_1/(TP_1+FP_1)
+Precision_2 = TP_2/(TP_2+FP_2)
 
