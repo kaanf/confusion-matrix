@@ -3,15 +3,6 @@ import pandas as pd
 import seaborn as sn
 import matplotlib.pyplot as plt
 
-# - koyduğum yerleri(notlar dışında) kod bloklarına bölerek Jüpitere yapıştır.
-
-# -
-# 2 adet farklı dataset kullanıldı.
-# Değerler sırasıyla;
-# Distance: Yüz tanıma oranı, 1'den küçükse yüzü tanıyor.
-# Duration: Yüz tanıma süresi.
-# Actual: Gerçek sonuç.
-# Prediction: Modelden gelen sonuç.
 df = pd.DataFrame([
         [0.96, 3.47, True, True],
         [0.22, 6.12, False, True],
